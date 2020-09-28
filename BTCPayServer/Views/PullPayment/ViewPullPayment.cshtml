@@ -171,11 +171,24 @@
                                         </tbody>
                                     </table>
                                 }
-                                else
-                                {
-                                    <p class="text-muted">No claim made yet.</p>
-                                }
-                            </div>
+                            }
+                            else
+                            {
+                                <p class="text-secondary">No claim made yet</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            Updated @Model.LastUpdated.ToString("g")
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <a href="https://voltageapp.io">Back to Voltage</a>
+                        </div>
+                        <div class="col-12 col-sm-6 text-sm-right">
+                            Powered by <a href="https://btcpayserver.org" target="_blank">BTCPay Server</a>
                         </div>
                     </div>
                 </div>

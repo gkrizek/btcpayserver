@@ -210,6 +210,9 @@
                 <button class="action-button close-action" v-show="isModal" v-on:click="close">
                     <span v-html="$t('Close')"></span>
                 </button>
+                <button class="action-button close-action" v-show="isModal" v-on:click="window.location.assign('https://voltageapp.io');">
+                    <span v-html="$t('Back to Voltage')"></span>
+                </button>
             </div>
         </div>
         <div class="button-wrapper refund-address-form-container" id="refund-overpayment-button">

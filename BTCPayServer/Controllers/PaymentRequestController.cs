@@ -263,9 +263,10 @@ namespace BTCPayServer.Controllers
             var pr = await _PaymentRequestRepository.FindPaymentRequest(id, null, cancellationToken);
             var blob = pr.GetBlob();
             var store = pr.StoreData;
+            var baseUrl = Environment.GetEnvironmentVariable("VOLTAGE_BASE_URL");
+            var apiBaseUrl = Environment.GetEnvironmentVariable("VOLTAGE_API_URL");
             try
             {
-                var redirectUrl = _linkGenerator.PaymentRequestLink(id, Request.Scheme, Request.Host, Request.PathBase);
                 var newInvoiceId = (await _InvoiceController.CreateInvoiceCore(new BitpayCreateInvoiceRequest()
                 {
                     OrderId = $"{PaymentRequestRepository.GetOrderIdForPaymentRequest(id)}",
@@ -273,7 +274,8 @@ namespace BTCPayServer.Controllers
                     Price = amount.Value,
                     FullNotifications = true,
                     BuyerEmail = result.Email,
-                    RedirectURL = redirectUrl,
+                    RedirectURL = $"{baseUrl}/create/lnd?paid_with=btcpay",
+                    NotificationURL = $"{apiBaseUrl}/btcpay/webhook",
                 }, store, HttpContext.Request.GetAbsoluteRoot(),
                         new List<string>() { PaymentRequestRepository.GetInternalTag(id) },
                         cancellationToken: cancellationToken))
